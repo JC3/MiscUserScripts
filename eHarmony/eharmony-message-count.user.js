@@ -25,7 +25,9 @@ SOFTWARE.
 // ==UserScript==
 // @name         eHarmony Message Count
 // @namespace    jasonc
-// @version      1.0
+// @updateURL    https://raw.githubusercontent.com/JC3/MiscUserScripts/master/eHarmony/eharmony-message-count.user.js
+// @downloadURL  https://raw.githubusercontent.com/JC3/MiscUserScripts/master/eHarmony/eharmony-message-count.user.js
+// @version      1
 // @description  Puts new message count in eHarmony title bar.
 // @author       Jason Cipriani
 // @match        *://*.eharmony.com/*
