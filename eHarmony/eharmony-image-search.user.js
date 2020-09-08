@@ -27,7 +27,7 @@ SOFTWARE.
 // @namespace    jasonc
 // @updateURL    https://raw.githubusercontent.com/JC3/MiscUserScripts/master/eHarmony/eharmony-image-search.user.js
 // @downloadURL  https://raw.githubusercontent.com/JC3/MiscUserScripts/master/eHarmony/eharmony-image-search.user.js
-// @version      1
+// @version      2
 // @description  Adds a reverse image search button to match images.
 // @author       Jason Cipriani
 // @match        *://*.eharmony.com/*
@@ -86,7 +86,7 @@ SOFTWARE.
             .replace(/["']?\)$/, '')
             .trim();
         if (url != "") {
-            window.open(`https://www.google.com/searchbyimage?image_url=${encodeURIComponent(url)}`, 'jc-gis-window');
+            window.open(`https://www.google.com/searchbyimage?image_url=${encodeURIComponent(url)}`);
         }
         return false;
     }
