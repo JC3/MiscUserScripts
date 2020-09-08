@@ -23,7 +23,7 @@ SOFTWARE.
 */
 
 // ==UserScript==
-// @name         eHarmony Google Image Search
+// @name         eHarmony Google Image Search (Beta)
 // @namespace    jasonc
 // @updateURL    https://raw.githubusercontent.com/JC3/MiscUserScripts/master/eHarmony/eharmony-image-search.user.js
 // @downloadURL  https://raw.githubusercontent.com/JC3/MiscUserScripts/master/eHarmony/eharmony-image-search.user.js
