@@ -2,6 +2,7 @@ Scripts that are here:
 
 - **eharmony-message-count.user.js** - Adds message count to browser tab title and also plays a sound when new messages arrive.
 - **eharmony-message-count-nosound.user.js** - Same as above but no sounds.
+- **eharmony-image-search.user.js** - Adds a button to bottom right of match images to run a Google image search.
 
 To install:
 
