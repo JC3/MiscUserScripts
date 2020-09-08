@@ -27,7 +27,7 @@ SOFTWARE.
 // @namespace    jasonc
 // @updateURL    https://raw.githubusercontent.com/JC3/MiscUserScripts/master/eHarmony/eharmony-image-search.user.js
 // @downloadURL  https://raw.githubusercontent.com/JC3/MiscUserScripts/master/eHarmony/eharmony-image-search.user.js
-// @version      2
+// @version      3
 // @description  Adds a reverse image search button to match images.
 // @author       Jason Cipriani
 // @match        *://*.eharmony.com/*
@@ -72,7 +72,7 @@ SOFTWARE.
     });
 
     function updatePhotoLinks () {
-        $(':not(div.photoMask, .js-openSlideshow) > .u-photoProtector + .photo[style]:not([data-jc-gis-fixed=1])')
+        $(':not(.photoMask, .js-openSlideshow, .js-linkToProfile) > .u-photoProtector + .photo[style]:not([data-jc-gis-fixed=1])')
             .attr('data-jc-gis-fixed', 1)
             .append($('<div/>')
                 .addClass('jc-gis-button')
