@@ -27,7 +27,7 @@ SOFTWARE.
 // @namespace    jasonc
 // @updateURL    https://raw.githubusercontent.com/JC3/MiscUserScripts/master/eHarmony/eharmony-image-search.user.js
 // @downloadURL  https://raw.githubusercontent.com/JC3/MiscUserScripts/master/eHarmony/eharmony-image-search.user.js
-// @version      3
+// @version      4
 // @description  Adds a reverse image search button to match images.
 // @author       Jason Cipriani
 // @match        *://*.eharmony.com/*
@@ -51,6 +51,7 @@ SOFTWARE.
             margin: 0 0 0 4px;
             color: var(--COLOR_support2_100);
             z-index: 1000000;
+            text-decoration: none;
         }
         .jc-gis-button:hover {
             filter: brightness(150%);
@@ -72,23 +73,20 @@ SOFTWARE.
     });
 
     function updatePhotoLinks () {
-        $(':not(.photoMask, .js-openSlideshow, .js-linkToProfile) > .u-photoProtector + .photo[style]:not([data-jc-gis-fixed=1])')
-            .attr('data-jc-gis-fixed', 1)
-            .append($('<div/>')
+        $(':not(.photoMask, .js-openSlideshow, .js-linkToProfile) > .u-photoProtector + .photo[style]:not([data-jc-gis-fixed=1])').each(function (n,el) {
+            el = $(el);
+            let url = el.css('background-image')
+                .replace(/^url\(["']?/, '')
+                .replace(/["']?\)$/, '')
+                .trim();
+            let button = $('<a/>')
                 .addClass('jc-gis-button')
+                .attr('href', `https://www.google.com/searchbyimage?image_url=${encodeURIComponent(url)}`)
+                .attr('target', '_blank')
                 .text('GIS')
-                .click(execImageSearch));
-    }
-
-    function execImageSearch (e) {
-        let url = $(e.target).parent().css('background-image')
-            .replace(/^url\(["']?/, '')
-            .replace(/["']?\)$/, '')
-            .trim();
-        if (url != "") {
-            window.open(`https://www.google.com/searchbyimage?image_url=${encodeURIComponent(url)}`);
-        }
-        return false;
+                .click((e) => e.stopPropagation());
+            el.attr('data-jc-gis-fixed', 1).append(button);
+        });
     }
 
 })();
