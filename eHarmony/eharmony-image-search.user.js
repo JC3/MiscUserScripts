@@ -27,7 +27,7 @@ SOFTWARE.
 // @namespace    jasonc
 // @updateURL    https://raw.githubusercontent.com/JC3/MiscUserScripts/master/eHarmony/eharmony-image-search.user.js
 // @downloadURL  https://raw.githubusercontent.com/JC3/MiscUserScripts/master/eHarmony/eharmony-image-search.user.js
-// @version      4
+// @version      5
 // @description  Adds a reverse image search button to match images.
 // @author       Jason Cipriani
 // @match        *://*.eharmony.com/*
@@ -79,13 +79,18 @@ SOFTWARE.
                 .replace(/^url\(["']?/, '')
                 .replace(/["']?\)$/, '')
                 .trim();
-            let button = $('<a/>')
-                .addClass('jc-gis-button')
-                .attr('href', `https://www.google.com/searchbyimage?image_url=${encodeURIComponent(url)}`)
-                .attr('target', '_blank')
-                .text('GIS')
-                .click((e) => e.stopPropagation());
-            el.attr('data-jc-gis-fixed', 1).append(button);
+            if (url != "") {
+                if (!url.includes('placeholder')) {
+                    $('<a/>')
+                        .addClass('jc-gis-button')
+                        .attr('href', `https://www.google.com/searchbyimage?image_url=${encodeURIComponent(url)}`)
+                        .attr('target', '_blank')
+                        .text('GIS')
+                        .click((e) => e.stopPropagation())
+                        .appendTo(el);
+                }
+                el.attr('data-jc-gis-fixed', 1);
+            }
         });
     }
 
