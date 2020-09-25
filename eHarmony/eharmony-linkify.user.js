@@ -27,7 +27,7 @@ SOFTWARE.
 // @namespace    jasonc
 // @updateURL    https://raw.githubusercontent.com/JC3/MiscUserScripts/master/eHarmony/eharmony-linkify.user.js
 // @downloadURL  https://raw.githubusercontent.com/JC3/MiscUserScripts/master/eHarmony/eharmony-linkify.user.js
-// @version      1
+// @version      2
 // @description  Turns URLs in eHarmony messages into clickable links.
 // @author       Jason Cipriani
 // @match        *://*.eharmony.com/*
@@ -38,6 +38,11 @@ SOFTWARE.
     'use strict';
 
     var $ = window.jQuery;
+
+    $('<style/>')
+        .attr('type', 'text/css')
+        .text('.is-myMessage a { color:var(--COLOR_support2_100); }')
+        .appendTo(document.head);
 
     new MutationObserver(function () {
         $('#conversationArea .messageText:not([data-jc-linkified="1"])')
