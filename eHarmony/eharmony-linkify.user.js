@@ -25,8 +25,8 @@ SOFTWARE.
 // ==UserScript==
 // @name         eHarmony Message Links
 // @namespace    jasonc
-// @updateURL    https://raw.githubusercontent.com/JC3/MiscUserScripts/master/eHarmony/eharmony-linkify.js
-// @downloadURL  https://raw.githubusercontent.com/JC3/MiscUserScripts/master/eHarmony/eharmony-linkify.js
+// @updateURL    https://raw.githubusercontent.com/JC3/MiscUserScripts/master/eHarmony/eharmony-linkify.user.js
+// @downloadURL  https://raw.githubusercontent.com/JC3/MiscUserScripts/master/eHarmony/eharmony-linkify.user.js
 // @version      1
 // @description  Turns URLs in eHarmony messages into clickable links.
 // @author       Jason Cipriani
