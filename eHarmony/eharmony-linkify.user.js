@@ -27,7 +27,7 @@ SOFTWARE.
 // @namespace    jasonc
 // @updateURL    https://raw.githubusercontent.com/JC3/MiscUserScripts/master/eHarmony/eharmony-linkify.user.js
 // @downloadURL  https://raw.githubusercontent.com/JC3/MiscUserScripts/master/eHarmony/eharmony-linkify.user.js
-// @version      3
+// @version      4
 // @description  Turns URLs in eHarmony messages into clickable links.
 // @author       Jason Cipriani
 // @match        *://*.eharmony.com/*
@@ -55,7 +55,7 @@ SOFTWARE.
     });
 
     function linkify (e) {
-        var html = e.innerHTML.replace(/(https?|ftp):\/\/[^ <]*/g, '<a href="$&" target="_blank">$&</a>');
+        var html = e.innerHTML.replace(/(https?:\/\/.*?)([.?!,]?(?:[\s<]|$))/g, '<a href="$1" target="_blank">$1</a>$2');
         e.innerHTML = html;
     }
 
