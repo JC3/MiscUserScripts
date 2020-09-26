@@ -4,6 +4,9 @@ Scripts that are here:
 - **eharmony-message-count-nosound.user.js** - Same as above but no sounds.
 - **eharmony-image-search.user.js** - Adds a button to bottom right of match images to run a Google image search. Buggy.
 - **eharmony-linkify.user.js** - Changes URLs in messages to clickable links.
+- **eharmony-hide-cards.user.js** - Adds buttons to permanently hide a match card.
+   - `HideCards.unhideAll()` in console to reset hide list.
+   - `HideCards.unhideLast()` in console to unhide the last hidden card.
 
 To install:
 
