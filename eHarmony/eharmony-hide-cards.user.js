@@ -27,7 +27,7 @@ SOFTWARE.
 // @namespace    jasonc
 // @updateURL    https://raw.githubusercontent.com/JC3/MiscUserScripts/master/eHarmony/eharmony-hide-cards.user.js
 // @downloadURL  https://raw.githubusercontent.com/JC3/MiscUserScripts/master/eHarmony/eharmony-hide-cards.user.js
-// @version      1
+// @version      2
 // @description  Hides cards of matches you don't want to see.
 // @author       Jason Cipriani
 // @match        *://*.eharmony.com/*
@@ -41,13 +41,14 @@ SOFTWARE.
     var $ = unsafeWindow.jQuery;
 
     unsafeWindow.HideCards = {
-        unhideAll: pubUnhideAll,
-        unhideLast: pubUnhideLast
+        printHidden: pubPrintHidden,
+        unhideAll: pubUnhideAll
     }
 
     $('<style/>')
         .attr('type', 'text/css')
-        .text('.jc-hide-button{position:absolute;right:5px;font-size:small;font-weight:normal;}')
+        .text('.jc-hide-button,.jc-unhide-button { position:absolute; right:5px; font-size:small; font-weight:normal; }\n' +
+              '.jc-unhide-button { display:none; }')
         .appendTo(document.head);
 
     var hideStyles = $('<style/>').appendTo(document.head);
@@ -68,16 +69,28 @@ SOFTWARE.
                 .addClass('jc-hide-button')
                 .attr('href', '#')
                 .text('Hide')
-                .click(hideCard)
+                .click(e => setCardHidden(e, true))
+                .appendTo(e);
+        }
+        if (e.children('.jc-unhide-button').length == 0) {
+            $('<a/>')
+                .addClass('jc-unhide-button')
+                .attr('href', '#')
+                .text('Unhide')
+                .click(e => setCardHidden(e, false))
                 .appendTo(e);
         }
     }
 
-    function hideCard (e) {
+    function setCardHidden (e, hidden) {
         var matchId = $(e.target).closest('.partnerItem').attr('href').match(/[?&]match=(\w+)/)[1];
         if (matchId) {
-            GM.getValue('hidden', []).then(function(r) {
-                r.push(matchId);
+            GM.getValue('hidden', {}).then(function(r) {
+                if (hidden) {
+                    r[matchId] = true;
+                } else {
+                    delete r[matchId];
+                }
                 return GM.setValue('hidden', r);
             }).then(updateHideStyles);
         }
@@ -86,24 +99,25 @@ SOFTWARE.
     }
 
     function updateHideStyles () {
-        return GM.getValue('hidden', []).then(function(r) {
+        return GM.getValue('hidden', {}).then(function(r) {
             var style = '';
-            for (let id of r) {
-                style += `a.partnerItem[href$="=${id}"] { display:none; }\n`;
+            for (let id in r) {
+                style += `a.partnerItem[href$="=${id}"] { filter:contrast(0) opacity(0.5); pointer-events:none; cursor:default; }\n`;
+                style += `a.partnerItem[href$="=${id}"] .jc-hide-button { display:none; }\n`;
+                style += `a.partnerItem[href$="=${id}"] .jc-unhide-button { display:initial; pointer-events:auto; }\n`;
             }
             hideStyles.text(style);
         });
     }
 
     function pubUnhideAll () {
-        return GM.setValue('hidden', []).then(updateHideStyles);
+        return GM.setValue('hidden', {}).then(updateHideStyles);
     }
 
-    function pubUnhideLast () {
-        return GM.getValue('hidden', []).then(function(r) {
-            r.pop();
-            return GM.setValue('hidden', r);
-        }).then(updateHideStyles);
+    function pubPrintHidden () {
+        return GM.getValue('hidden', {}).then(function(r) {
+            console.log(r);
+        });
     }
 
 })();
