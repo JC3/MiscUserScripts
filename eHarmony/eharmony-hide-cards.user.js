@@ -27,7 +27,7 @@ SOFTWARE.
 // @namespace    jasonc
 // @updateURL    https://raw.githubusercontent.com/JC3/MiscUserScripts/master/eHarmony/eharmony-hide-cards.user.js
 // @downloadURL  https://raw.githubusercontent.com/JC3/MiscUserScripts/master/eHarmony/eharmony-hide-cards.user.js
-// @version      2
+// @version      3
 // @description  Hides cards of matches you don't want to see.
 // @author       Jason Cipriani
 // @match        *://*.eharmony.com/*
@@ -42,7 +42,8 @@ SOFTWARE.
 
     unsafeWindow.HideCards = {
         printHidden: pubPrintHidden,
-        unhideAll: pubUnhideAll
+        unhideAll: pubUnhideAll,
+        unhideOld: pubUnhideOld
     }
 
     $('<style/>')
@@ -87,7 +88,7 @@ SOFTWARE.
         if (matchId) {
             GM.getValue('hidden', {}).then(function(r) {
                 if (hidden) {
-                    r[matchId] = true;
+                    r[matchId] = Date.now();
                 } else {
                     delete r[matchId];
                 }
@@ -117,6 +118,31 @@ SOFTWARE.
     function pubPrintHidden () {
         return GM.getValue('hidden', {}).then(function(r) {
             console.log(r);
+        });
+    }
+
+    function pubUnhideOld (days) {
+        if (!(days > 0)) {
+            console.log('pubUnhideOld(days): # of days must be > 0.');
+            return;
+        }
+        return GM.getValue('hidden', {}).then(function (r) {
+            var now = Date.now();
+            var ms = days * 24 * 60 * 60000;
+            var expired = [];
+            for (let id in r) {
+                if (now - r[id] >= ms) {
+                    expired.push(id);
+                }
+            }
+            for (let id of expired) {
+                delete r[id];
+            }
+            if (expired.length > 0) {
+                console.log(`unhid ${expired.length} old match(es).`);
+                console.log(expired);
+                return GM.setValue('hidden', r).then(updateHideStyles);
+            }
         });
     }
 
