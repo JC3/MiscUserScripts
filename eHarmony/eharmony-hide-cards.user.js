@@ -27,7 +27,7 @@ SOFTWARE.
 // @namespace    jasonc
 // @updateURL    https://raw.githubusercontent.com/JC3/MiscUserScripts/master/eHarmony/eharmony-hide-cards.user.js
 // @downloadURL  https://raw.githubusercontent.com/JC3/MiscUserScripts/master/eHarmony/eharmony-hide-cards.user.js
-// @version      3
+// @version      4
 // @description  Hides cards of matches you don't want to see.
 // @author       Jason Cipriani
 // @match        *://*.eharmony.com/*
@@ -103,7 +103,7 @@ SOFTWARE.
         return GM.getValue('hidden', {}).then(function(r) {
             var style = '';
             for (let id in r) {
-                style += `a.partnerItem[href$="=${id}"] { filter:contrast(0) opacity(0.5); pointer-events:none; cursor:default; }\n`;
+                style += `a.partnerItem[href$="=${id}"], .contactItem[data-partner-user-id="${id}"] { filter:contrast(0) opacity(0.5); pointer-events:none; cursor:default; }\n`;
                 style += `a.partnerItem[href$="=${id}"] .jc-hide-button { display:none; }\n`;
                 style += `a.partnerItem[href$="=${id}"] .jc-unhide-button { display:initial; pointer-events:auto; }\n`;
             }
