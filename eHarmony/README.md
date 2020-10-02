@@ -8,6 +8,7 @@ Scripts that are here:
    - `HideCards.unhideAll()` in console to reset hide list.
    - `HideCards.unhideOld(days)` in console to unhide cards older then # of days.
    - `HideCards.printHidden()` in console to list all hidden match ids.
+- **eharmony-convo-log.user.js** - Adds some console commands for obtaining conversation logs.
 
 To install:
 
