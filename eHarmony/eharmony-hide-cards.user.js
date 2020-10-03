@@ -117,6 +117,11 @@ SOFTWARE.
 
     function pubPrintHidden () {
         return GM.getValue('hidden', {}).then(function(r) {
+            var now = Date.now();
+            for (let id in r) {
+                var days = (now - r[id]) / (24 * 60 * 60000);
+                console.log(`  ${id}: ${days.toFixed(2)} days ago`);
+            }
             console.log(r);
         });
     }
